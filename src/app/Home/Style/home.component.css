@@ -1,0 +1,172 @@
+/* Hero Section Styles */
+.hero-section {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-section img {
+  max-height: 400px;
+  object-fit: cover;
+}
+
+/* Job Search Section */
+.job-search-section {
+  background-color: #f8f9fa;
+}
+
+.job-search-section .card {
+  border: none;
+  border-radius: 15px;
+}
+
+/* Feature Cards */
+.features-section .card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 15px;
+}
+
+.features-section .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.feature-icon {
+  transition: transform 0.3s ease;
+}
+
+.features-section .card:hover .feature-icon {
+  transform: scale(1.1);
+}
+
+/* Statistics Section */
+.stats-section {
+  background: linear-gradient(135deg, #343a40 0%, #212529 100%);
+}
+
+.stat-item h2 {
+  font-size: 3.5rem;
+}
+
+/* Category Cards */
+.category-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-color: #007bff !important;
+}
+
+.category-icon {
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-icon {
+  transform: scale(1.1);
+}
+
+/* Job Cards */
+.job-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 15px;
+}
+
+.job-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.company-logo {
+  min-width: 60px;
+  min-height: 60px;
+}
+
+/* Testimonial Cards */
+.testimonial-card {
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-3px);
+}
+
+.testimonial-avatar {
+  margin: 0 auto;
+}
+
+/* Call to Action Section */
+.cta-section {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
+
+/* Utility Classes */
+.hover-shadow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 400px;
+    text-align: center;
+  }
+
+  .hero-section .display-4 {
+    font-size: 2.5rem;
+  }
+
+  .stat-item h2 {
+    font-size: 2.5rem;
+  }
+
+  .job-search-section .form-control-lg,
+  .job-search-section .form-select-lg {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section .display-4 {
+    font-size: 2rem;
+  }
+
+  .display-5 {
+    font-size: 2rem;
+  }
+
+  .stat-item h2 {
+    font-size: 2rem;
+  }
+}
+
+/* Animation for page load */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-section,
+.job-search-section,
+.features-section,
+.stats-section,
+.categories-section,
+.featured-jobs-section,
+.testimonials-section,
+.cta-section {
+  animation: fadeInUp 0.8s ease-out;
+}

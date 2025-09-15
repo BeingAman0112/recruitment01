@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -9,17 +9,17 @@ export class CoreDataService {
   private baseUrl: string = "";
 
 
-  private getAllJob = '/api/job/GetAllJobs';
-  private SaveJob = '/api/job/PostJob';
-  private GetJobfilter = '/api/job/SearchJobs';
+  private getAllJob = 'api/GetAllJobs';
+  private SaveJob = 'api/PostJob';
+  private GetJobfilter = 'api/SearchJobs';
 
-  private login = '/api/LoginSignUp/login';
-  private Signup = '/api/LoginSignUp/signup';
+  private login = 'api/LoginSignUp/login';
+  private Signup = 'api/LoginSignUp/signup';
 
   constructor(private http: HttpClient)
   {
     if (window.location.origin.includes("localhost")) {
-      this.baseUrl = "https://localhost:44305/";
+      this.baseUrl = "https://localhost:44303/";
 
     }
     else {
@@ -46,7 +46,13 @@ export class CoreDataService {
   }
 
   GetJobfilterData(filterData: any):Observable<any> {
-    return this.http.post(this.GetJobfilter, filterData);
+    let params = new HttpParams()
+    .set('title', filterData.JobTitle)
+    .set('location', filterData.location)
+    .set('category', filterData.category)
+    .set('type', filterData.jobType );
+
+  return this.http.get(this.GetJobfilter, { params });
   }
 
   loginData(loginData: any):Observable<any> {
