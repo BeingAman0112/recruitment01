@@ -1,0 +1,271 @@
+/* Admin Header */
+.admin-header {
+  background: linear-gradient(135deg, #343a40 0%, #212529 100%);
+}
+
+/* Form Sections */
+.form-section {
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 2rem;
+}
+
+.form-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.section-title {
+  color: #495057;
+  font-weight: 600;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+}
+
+/* Required Field Indicator */
+.form-label.required::after {
+  content: " *";
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Form Controls */
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 0.75rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Card Styling */
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-header {
+  border-bottom: none;
+}
+
+/* Requirements and Benefits Lists */
+.requirements-list,
+.benefits-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.requirement-item,
+.benefit-item {
+  transition: background-color 0.2s ease;
+  border: 1px solid #e9ecef;
+}
+
+.requirement-item:hover,
+.benefit-item:hover {
+  background-color: #f8f9fa !important;
+}
+
+/* Form Actions */
+.form-actions {
+  background-color: #f8f9fa;
+  margin: -1.5rem -1.5rem -1.5rem -1.5rem;
+  padding: 1.5rem;
+  border-radius: 0 0 15px 15px;
+}
+
+/* Job Preview */
+.job-preview {
+  font-family: inherit;
+}
+
+.job-preview .company-logo {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
+
+.job-preview .job-title {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.job-preview .company-name {
+  font-weight: 500;
+  color: #007bff !important;
+}
+
+.job-preview .badge {
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+}
+
+.job-preview .badge.bg-outline-secondary {
+  background-color: transparent !important;
+  border: 1px solid #6c757d;
+  color: #6c757d;
+}
+
+/* Alert Styling */
+.alert {
+  border-radius: 10px;
+  border: none;
+}
+
+.alert-success {
+  background-color: #d1edff;
+  color: #0c5460;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Button Styling */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+  transform: translateY(-1px);
+}
+
+.btn-outline-primary:hover {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
+
+/* Loading States */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-header h1 {
+    font-size: 2rem;
+  }
+
+  .form-actions {
+    margin: -1rem -1rem -1rem -1rem;
+    padding: 1rem;
+  }
+
+  .form-actions .d-flex {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .btn-group {
+    width: 100%;
+  }
+
+  .btn-group .btn {
+    flex: 1;
+  }
+
+  .job-preview .job-meta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+  }
+
+  .requirement-item,
+  .benefit-item {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 0.5rem;
+  }
+
+  .requirement-item .btn,
+  .benefit-item .btn {
+    align-self: flex-end;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-section,
+.job-preview-section .card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.form-section:nth-child(even) {
+  animation-delay: 0.1s;
+}
+
+.form-section:nth-child(odd) {
+  animation-delay: 0.2s;
+}
+
+/* Input Group Styling */
+.input-group .btn {
+  border-left: none;
+}
+
+.input-group .form-control:focus + .btn {
+  border-color: #007bff;
+}
+
+/* Textarea Styling */
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Checkbox Styling */
+.form-check-input:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.form-check-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Success/Error Message Animation */
+.alert {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

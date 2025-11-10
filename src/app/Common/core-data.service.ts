@@ -19,8 +19,8 @@ export class CoreDataService {
   constructor(private http: HttpClient)
   {
     if (window.location.origin.includes("localhost")) {
-      this.baseUrl = "https://localhost:44303/";
-
+      this.baseUrl = "https://recuritment-api.onrender.com/"
+      // this.baseUrl = "https://localhost:44303/";
     }
     else {
 

@@ -62,7 +62,12 @@ export class JobsComponent implements OnInit {
     this.coreDataService.getAllJobs().subscribe({
       next: (response) => {
         console.log(response, "Jobs");
-        this.jobs = response || [];
+        this.jobs = response.map((job : any) => ({
+          ...job,
+          requirements: job.requirements ? job.requirements.split(',') : [],
+          benefits: job.benefits ? job.benefits.split(',') : []
+        }));
+
         this.filteredJobs = [...this.jobs];
         this.calculatePagination();
         this.loading = false;
@@ -142,7 +147,7 @@ export class JobsComponent implements OnInit {
         job.location?.toLowerCase().includes(this.selectedLocation.toLowerCase());
 
       const matchesCategory = !this.selectedCategory ||
-        job.category === this.selectedCategory;
+        job.jobCategory === this.selectedCategory;
 
       const matchesJobType = !this.selectedJobType ||
         job.jobType === this.selectedJobType;

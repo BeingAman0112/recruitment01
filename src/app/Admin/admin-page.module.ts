@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { AdminPageRoutingModule } from './admin-page-routing.module';
 import { AdminPageComponent } from './Component/admin-page.component';
@@ -11,6 +12,7 @@ import { AdminPageComponent } from './Component/admin-page.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     AdminPageRoutingModule
   ]
 })

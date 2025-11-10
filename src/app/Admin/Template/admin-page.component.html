@@ -1,0 +1,446 @@
+<!-- Admin Page Header -->
+<section class="admin-header bg-dark text-white py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="display-5 fw-bold mb-2">
+          <i class="fas fa-user-shield me-3"></i>Admin Dashboard
+        </h1>
+        <p class="lead mb-0">Post and manage job opportunities</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Success/Error Messages -->
+<section class="messages-section py-3" *ngIf="success || error">
+  <div class="container">
+    <!-- Success Message -->
+    <div *ngIf="success" class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="fas fa-check-circle me-2"></i>
+      <strong>Success!</strong> Job posted successfully!
+      <button type="button" class="btn-close" (click)="clearMessages()"></button>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+      <i class="fas fa-exclamation-triangle me-2"></i>
+      <strong>Error!</strong> {{error}}
+      <button type="button" class="btn-close" (click)="clearMessages()"></button>
+    </div>
+  </div>
+</section>
+
+<!-- Job Posting Form -->
+<section class="job-form-section py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card shadow-lg border-0">
+          <div class="card-header bg-primary text-white py-3">
+            <h3 class="card-title mb-0">
+              <i class="fas fa-plus-circle me-2"></i>Post New Job
+            </h3>
+          </div>
+          <div class="card-body p-4">
+            <form (ngSubmit)="submitJob()" #jobForm="ngForm">
+
+              <!-- Basic Information Section -->
+              <div class="form-section mb-5">
+                <h4 class="section-title mb-4">
+                  <i class="fas fa-info-circle me-2 text-primary"></i>Basic Information
+                </h4>
+                <div class="row g-3">
+                  <!-- Job Title -->
+                  <div class="col-md-6">
+                    <label for="jobTitle" class="form-label required">Job Title</label>
+                    <input
+                      type="text"
+                      id="jobTitle"
+                      class="form-control"
+                      placeholder="e.g. Senior Software Developer"
+                      [(ngModel)]="jobPost.title"
+                      name="jobTitle"
+                      required>
+                  </div>
+
+                  <!-- Company Name -->
+                  <div class="col-md-6">
+                    <label for="company" class="form-label required">Company Name</label>
+                    <input
+                      type="text"
+                      id="company"
+                      class="form-control"
+                      placeholder="e.g. TechCorp Solutions"
+                      [(ngModel)]="jobPost.company"
+                      name="company"
+                      required>
+                  </div>
+
+                  <!-- Location -->
+                  <div class="col-md-6">
+                    <label for="location" class="form-label required">Location</label>
+                    <input
+                      type="text"
+                      id="location"
+                      class="form-control"
+                      placeholder="e.g. New York, NY"
+                      [(ngModel)]="jobPost.location"
+                      name="location"
+                      required>
+                  </div>
+
+                  <!-- Category -->
+                  <div class="col-md-6">
+                    <label for="category" class="form-label required">Category</label>
+                    <select
+                      id="category"
+                      class="form-select"
+                      [(ngModel)]="jobPost.jobCategory"
+                      name="category"
+                      required>
+                      <option value="">Select Category</option>
+                      <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+                    </select>
+                  </div>
+
+                  <!-- Job Type -->
+                  <div class="col-md-6">
+                    <label for="jobType" class="form-label required">Job Type</label>
+                    <select
+                      id="jobType"
+                      class="form-select"
+                      [(ngModel)]="jobPost.jobType"
+                      name="jobType"
+                      required>
+                      <option value="">Select Job Type</option>
+                      <option *ngFor="let type of jobTypes" [value]="type">{{type}}</option>
+                    </select>
+                  </div>
+
+                  <!-- Experience Level -->
+                  <div class="col-md-6">
+                    <label for="experienceLevel" class="form-label">Experience Level</label>
+                    <select
+                      id="experienceLevel"
+                      class="form-select"
+                      [(ngModel)]="jobPost.experienceLevel"
+                      name="experienceLevel">
+                      <option value="">Select Experience Level</option>
+                      <option *ngFor="let level of experienceLevels" [value]="level">{{level}}</option>
+                    </select>
+                  </div>
+
+                  <!-- Salary Range -->
+                  <div class="col-md-6">
+                    <label for="salaryRange" class="form-label">Salary Range</label>
+                    <select
+                      id="salaryRange"
+                      class="form-select"
+                      [(ngModel)]="jobPost.salaryRange"
+                      name="salaryRange">
+                      <option value="">Select Salary Range</option>
+                      <option *ngFor="let range of salaryRanges" [value]="range">{{range}}</option>
+                    </select>
+                  </div>
+
+                  <!-- Remote Work -->
+                  <div class="col-md-6">
+                    <div class="form-check mt-4">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="isRemote"
+                        [(ngModel)]="jobPost.isRemote"
+                        name="isRemote">
+                      <label class="form-check-label" for="isRemote">
+                        <i class="fas fa-home me-1"></i>Remote Work Available
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Job Description Section -->
+              <div class="form-section mb-5">
+                <h4 class="section-title mb-4">
+                  <i class="fas fa-file-alt me-2 text-primary"></i>Job Description
+                </h4>
+                <div class="row g-3">
+                  <!-- Description -->
+                  <div class="col-12">
+                    <label for="description" class="form-label required">Job Description</label>
+                    <textarea
+                      id="description"
+                      class="form-control"
+                      rows="6"
+                      placeholder="Provide a detailed description of the job role, responsibilities, and what the candidate will be doing..."
+                      [(ngModel)]="jobPost.description"
+                      name="description"
+                      required></textarea>
+                    <div class="form-text">Provide a comprehensive description of the role and responsibilities.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Requirements Section -->
+              <div class="form-section mb-5">
+                <h4 class="section-title mb-4">
+                  <i class="fas fa-list-check me-2 text-primary"></i>Requirements
+                </h4>
+                <div class="row g-3">
+                  <!-- Add Requirement -->
+                  <div class="col-12">
+                    <label for="newRequirement" class="form-label">Add Requirement</label>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        id="newRequirement"
+                        class="form-control"
+                        placeholder="e.g. 5+ years of experience in Angular"
+                        [(ngModel)]="newRequirement"
+                        name="newRequirement"
+                        (keyup.enter)="addRequirement()">
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary"
+                        (click)="addRequirement()"
+                        [disabled]="!newRequirement.trim()">
+                        <i class="fas fa-plus"></i> Add
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Requirements List -->
+                  <div class="col-12" *ngIf="jobPost.requirements  && jobPost.requirements.length > 0">
+                    <label class="form-label">Current Requirements:</label>
+                    <div class="requirements-list">
+                      <div *ngFor="let requirement of jobPost.requirements ; let i = index"
+                           class="requirement-item d-flex align-items-center justify-content-between mb-2 p-2 bg-light rounded">
+                        <span class="flex-grow-1">
+                          <i class="fas fa-check-circle text-success me-2"></i>{{requirement}}
+                        </span>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-danger"
+                          (click)="removeRequirement(i)">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Benefits Section -->
+              <div class="form-section mb-5">
+                <h4 class="section-title mb-4">
+                  <i class="fas fa-gift me-2 text-primary"></i>Benefits & Perks
+                </h4>
+                <div class="row g-3">
+                  <!-- Add Benefit -->
+                  <div class="col-12">
+                    <label for="newBenefit" class="form-label">Add Benefit</label>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        id="newBenefit"
+                        class="form-control"
+                        placeholder="e.g. Health Insurance, Flexible Working Hours"
+                        [(ngModel)]="newBenefit"
+                        name="newBenefit"
+                        (keyup.enter)="addBenefit()">
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary"
+                        (click)="addBenefit()"
+                        [disabled]="!newBenefit.trim()">
+                        <i class="fas fa-plus"></i> Add
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Benefits List -->
+                  <div class="col-12" *ngIf="jobPost.benefits && jobPost.benefits.length > 0">
+                    <label class="form-label">Current Benefits:</label>
+                    <div class="benefits-list">
+                      <div *ngFor="let benefit of jobPost.benefits; let i = index"
+                           class="benefit-item d-flex align-items-center justify-content-between mb-2 p-2 bg-light rounded">
+                        <span class="flex-grow-1">
+                          <i class="fas fa-star text-warning me-2"></i>{{benefit}}
+                        </span>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-danger"
+                          (click)="removeBenefit(i)">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional Information Section -->
+              <div class="form-section mb-5">
+                <h4 class="section-title mb-4">
+                  <i class="fas fa-info me-2 text-primary"></i>Additional Information
+                </h4>
+                <div class="row g-3">
+                  <!-- Company Logo URL -->
+                  <div class="col-md-6">
+                    <label for="companyLogo" class="form-label">Company Logo URL</label>
+                    <input
+                      type="url"
+                      id="companyLogo"
+                      class="form-control"
+                      placeholder="https://example.com/logo.png"
+                      [(ngModel)]="jobPost.companyLogo"
+                      name="companyLogo">
+                    <div class="form-text">Optional: URL to company logo image</div>
+                  </div>
+
+                  <!-- Company Website -->
+                  <div class="col-md-6">
+                    <label for="companyWebsite" class="form-label">Company Website</label>
+                    <input
+                      type="url"
+                      id="companyWebsite"
+                      class="form-control"
+                      placeholder="https://company.com"
+                      [(ngModel)]="jobPost.companyWebsite"
+                      name="companyWebsite">
+                    <div class="form-text">Optional: Company website URL</div>
+                  </div>
+
+                  <!-- Contact Email -->
+                  <div class="col-md-6">
+                    <label for="contactEmail" class="form-label">Contact Email</label>
+                    <input
+                      type="email"
+                      id="contactEmail"
+                      class="form-control"
+                      placeholder="hr@company.com"
+                      [(ngModel)]="jobPost.contactEmail"
+                      name="contactEmail">
+                    <div class="form-text">Optional: Email for job applications</div>
+                  </div>
+
+                  <!-- Application Deadline -->
+                  <div class="col-md-6">
+                    <label for="applicationDeadline" class="form-label">Application Deadline</label>
+                    <input
+                      type="date"
+                      id="applicationDeadline"
+                      class="form-control"
+                      [(ngModel)]="jobPost.applicationDeadline"
+                      name="applicationDeadline">
+                    <div class="form-text">Optional: Last date to apply</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Actions -->
+              <div class="form-actions">
+                <hr class="my-4">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="form-text">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Fields marked with <span class="text-danger">*</span> are required
+                  </div>
+                  <div class="btn-group">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary btn-lg"
+                      (click)="resetForm()"
+                      [disabled]="loading">
+                      <i class="fas fa-undo me-2"></i>Reset Form
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-lg px-4"
+                      [disabled]="loading || !jobForm.form.valid">
+                      <span *ngIf="!loading">
+                        <i class="fas fa-paper-plane me-2"></i>Post Job
+                      </span>
+                      <span *ngIf="loading">
+                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                        Posting...
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Job Preview Section -->
+<section class="job-preview-section py-5 bg-light" *ngIf="jobPost.title && jobPost.company">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow border-0">
+          <div class="card-header bg-success text-white">
+            <h4 class="card-title mb-0">
+              <i class="fas fa-eye me-2"></i>Job Preview
+            </h4>
+          </div>
+          <div class="card-body p-4">
+            <!-- Job Preview Content -->
+            <div class="job-preview">
+              <div class="d-flex align-items-start mb-3">
+                <div class="company-logo bg-primary rounded me-3 d-flex align-items-center justify-content-center"
+                     style="width: 60px; height: 60px; min-width: 60px;">
+                  <i class="fas fa-building text-white fa-lg" *ngIf="!jobPost.companyLogo"></i>
+                  <img [src]="jobPost.companyLogo" alt="Company Logo" class="img-fluid rounded"
+                       style="max-width: 100%; max-height: 100%;" *ngIf="jobPost.companyLogo">
+                </div>
+                <div class="flex-grow-1">
+                  <h5 class="job-title mb-1">{{jobPost.title}}</h5>
+                  <p class="company-name text-primary mb-2">{{jobPost.company}}</p>
+                  <div class="job-meta d-flex flex-wrap gap-2 mb-2">
+                    <span class="badge bg-outline-secondary" *ngIf="jobPost.location">
+                      <i class="fas fa-map-marker-alt me-1"></i>{{jobPost.location}}
+                    </span>
+                    <span class="badge bg-primary" *ngIf="jobPost.jobType">{{jobPost.jobType}}</span>
+                    <span class="badge bg-success" *ngIf="jobPost.isRemote">Remote</span>
+                    <span class="badge bg-info" *ngIf="jobPost.salaryRange">{{jobPost.salaryRange}}</span>
+                    <span class="badge bg-warning" *ngIf="jobPost.experienceLevel">{{jobPost.experienceLevel}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <p class="job-description text-muted mb-3" *ngIf="jobPost.description">
+                {{jobPost.description}}
+              </p>
+
+              <div *ngIf="jobPost.requirements && jobPost.requirements.length > 0" class="requirements mb-3">
+                <h6 class="fw-bold">Requirements:</h6>
+                <ul class="list-unstyled">
+                  <li *ngFor="let req of jobPost.requirements" class="mb-1">
+                    <i class="fas fa-check text-success me-2"></i>{{req}}
+                  </li>
+                </ul>
+              </div>
+
+              <div *ngIf="jobPost.benefits && jobPost.benefits .length > 0" class="benefits">
+                <h6 class="fw-bold">Benefits:</h6>
+                <ul class="list-unstyled">
+                  <li *ngFor="let benefit of jobPost.benefits " class="mb-1">
+                    <i class="fas fa-star text-warning me-2"></i>{{benefit}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
